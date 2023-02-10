@@ -4,7 +4,7 @@ import axios from "axios";
 const instance = axios.create({
   baseURL:
     process.env.NODE_ENV === "development"
-      ? "http://127.0.0.1:8000/api/v1/"
+      ? "http://127.0.0.1:8000/api/v1"
       : "https://backend.depth-focusing.xyz/api/v1/",
   withCredentials: true,
 });
@@ -20,6 +20,31 @@ export const logOut = () =>
       },
     })
     .then((response) => response.data);
+
+export interface IUsernameLoginVariables {
+  username: string;
+  password: string;
+}
+export interface IUsernameLoginSuccess {
+  ok: string;
+}
+export interface IUsernameLoginError {
+  error: string;
+}
+
+export const usernameLogIn = ({
+  username,
+  password,
+}: IUsernameLoginVariables) =>
+  instance.post(
+    `users/log-in`,
+    { username, password },
+    {
+      headers: {
+        "X-CSRFToken": Cookie.get("csrftoken") || "",
+      },
+    }
+  );
 
 export const githubLogIn = (code: string) =>
   instance
