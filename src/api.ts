@@ -108,11 +108,15 @@ export const createPhoto = ({
     )
     .then((response) => response.data);
 
-export const getSegmentation = () =>
+export interface IGetSegmentationProps {
+  file: string;
+}
+
+export const getSegmentation = ({ file }: IGetSegmentationProps) =>
   instance
     .post(
-      `medias/photos/asdasd`,
-      { pk: 97 },
+      `medias/photos/get-segmentation`,
+      { file },
       {
         headers: {
           "X-CSRFToken": Cookie.get("csrftoken") || "",
