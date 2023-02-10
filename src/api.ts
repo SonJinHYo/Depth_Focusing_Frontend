@@ -125,11 +125,16 @@ export const getSegmentation = ({ file }: IGetSegmentationProps) =>
     )
     .then((response) => response.data);
 
-export const getBlurImage = ({ check_labels }: any) =>
+export interface IGetBlurImageProps {
+  check_labels: object;
+  seg_file: string;
+}
+
+export const getBlurImage = ({ check_labels, seg_file }: IGetBlurImageProps) =>
   instance
     .post(
-      `backend restAPI`,
-      { row: Number, column: Number, label: Number },
+      `medias/photos/get-blurimage`,
+      { check_labels, seg_file },
       {
         headers: {
           "X-CSRFToken": Cookie.get("csrftoken") || "",

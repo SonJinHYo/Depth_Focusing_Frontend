@@ -23,6 +23,7 @@ import { ListFormat } from "typescript";
 
 interface IGetBlurImageProps {
   blurImageURL: string;
+  onMoveReset: any;
 }
 
 interface ILabels {
@@ -30,7 +31,10 @@ interface ILabels {
   check_labels: number[];
 }
 
-export default function GetBlurImage({ blurImageURL }: IGetBlurImageProps) {
+export default function GetBlurImage({
+  blurImageURL,
+  onMoveReset,
+}: IGetBlurImageProps) {
   const toast = useToast();
 
   return (
@@ -62,8 +66,9 @@ export default function GetBlurImage({ blurImageURL }: IGetBlurImageProps) {
           colorScheme={"teal"}
           variant="solid"
           type="submit"
+          onClick={onMoveReset}
         >
-          Retry
+          Another
         </Button>
       </HStack>
     </VStack>

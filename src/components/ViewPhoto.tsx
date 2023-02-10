@@ -4,11 +4,7 @@ import {
   Button,
   Heading,
   useToast,
-  useMergeRefs,
-  Box,
   useBoolean,
-  HStack,
-  IconButton,
 } from "@chakra-ui/react";
 import { useMutation } from "@tanstack/react-query";
 import { useState, useRef } from "react";
@@ -22,21 +18,15 @@ interface IViewPhotosProps {
 }
 
 export default function ViewPhoto({ imageUrl }: IViewPhotosProps) {
-  const navigate = useNavigate();
   const scrollReset = useRef<any>(null);
   const onMoveReset = () => {
-    // setTimeout(() => {
-    //   scrollReset.current?.scrollIntoView({
-    //     behavior: "smooth",
-    //     block: "start",
-    //   });
-    // }, 100);
     scrollReset.current?.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
-
-    window.location.reload();
+    setTimeout(() => {
+      window.location.reload();
+    }, 800);
   };
   const scrollRef = useRef<any>(null);
   const onMoveElement = () => {
@@ -52,7 +42,7 @@ export default function ViewPhoto({ imageUrl }: IViewPhotosProps) {
   const [next, setNext] = useState(false);
   const [segImg, setSegImg] = useState("");
   // 많은 태그가 나오는 경우 해결 X
-  const [labels, setLabels] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  const [labels, setLabels] = useState<number[]>([]);
   const toast = useToast();
   // 백엔드 구현 후 완료될 부분
   const getSegmentatedImage = useMutation(getSegmentation, {
@@ -64,6 +54,9 @@ export default function ViewPhoto({ imageUrl }: IViewPhotosProps) {
         isClosable: true,
       });
       setNext(true);
+      const arr = Array.from({ length: data.labels_len }, (v, i) => i + 1);
+      setLabels(arr);
+      setSegImg(data.seg_file);
       setSkeletonFlag.off();
     },
   });
@@ -89,12 +82,6 @@ export default function ViewPhoto({ imageUrl }: IViewPhotosProps) {
           setNext(true);
           // 백엔드 구현 후 활성화될 부분
           getSegmentatedImage.mutate({ file: imageUrl });
-
-          // //skeleton 보기용 (임시)
-          // setTimeout(() => {
-          //   setSkeletonFlag.off();
-          // }, 2000);
-
           onMoveElement();
         }}
       >
@@ -116,7 +103,7 @@ export default function ViewPhoto({ imageUrl }: IViewPhotosProps) {
             <ChooseLabelSkeleton />
           ) : (
             <ChooseLabel
-              segImageUrl={imageUrl}
+              segImageUrl={segImg}
               labels={labels}
               onMoveReset={onMoveReset}
             />

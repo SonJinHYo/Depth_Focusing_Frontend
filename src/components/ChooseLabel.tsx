@@ -1,29 +1,25 @@
 import {
-  Box,
   Image,
   VStack,
-  Text,
   Button,
   HStack,
-  Stack,
   Checkbox,
   Heading,
   useBoolean,
-  Input,
   Grid,
   GridItem,
   FormControl,
   useToast,
-  CheckboxGroup,
   IconButton,
 } from "@chakra-ui/react";
-import { Mutation, useMutation } from "@tanstack/react-query";
-import { useEffect, useRef, useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { getBlurImage, getSegmentation } from "../api";
+import { getBlurImage } from "../api";
 import GetBlurImage from "./GetBlurImage";
 import GetBlurImageSkeleton from "./GetBlurImageSkeleton";
 import { BiUndo } from "react-icons/bi";
+import { off } from "process";
 
 interface IChooseLabelProps {
   segImageUrl: string;
@@ -53,21 +49,25 @@ export default function ChooseLabel({
 
   const { register, handleSubmit, watch } = useForm<ILabels>();
   const [next, setNext] = useState(false);
+  const [blurImage, setBlurImage] = useState("");
+
   const toast = useToast();
-  const mutation = useMutation(getBlurImage, {
-    onSuccess: () => {
+  const getBlurMutation = useMutation(getBlurImage, {
+    onSuccess: (data) => {
       toast({
         status: "success",
         title: "seg",
         position: "bottom-right",
       });
+      setNext(true);
+      setSkeletonFlag.off();
+      // blur 함수 완성되면
+      // setBlurImage(data.blur_file);
+      // 임시
+      setBlurImage(data.seg_file);
     },
   });
 
-  const onSubmit = (data: ILabels) => {
-    console.log("asd");
-    mutation.mutate(data);
-  };
   return (
     <VStack
       my="10"
@@ -80,12 +80,7 @@ export default function ChooseLabel({
           <Image rounded={"lg"} src={segImageUrl} />
         </GridItem>
         <GridItem>
-          <VStack
-            ml={20}
-            spacing={5}
-            align={"center"}
-            onSubmit={handleSubmit(onSubmit)}
-          >
+          <VStack ml={20} spacing={5} align={"center"}>
             {labels?.map((label: number) => (
               <FormControl key={label}>
                 <Checkbox size={"lg"} {...register(`check_labels.${label}`)}>
@@ -106,14 +101,11 @@ export default function ChooseLabel({
           variant="solid"
           type="submit"
           onClick={() => {
-            setNext(true);
-
-            //skeleton 보기용 (임시)
-            setTimeout(() => {
-              setSkeletonFlag.off();
-            }, 2000);
-
             onMoveElement();
+            getBlurMutation.mutate({
+              check_labels: watch(),
+              seg_file: segImageUrl,
+            });
           }}
         >
           Get Focusing Image
@@ -133,7 +125,7 @@ export default function ChooseLabel({
           {skeletonFlag ? (
             <GetBlurImageSkeleton />
           ) : (
-            <GetBlurImage blurImageURL={segImageUrl} />
+            <GetBlurImage blurImageURL={blurImage} onMoveReset={onMoveReset} />
           )}
         </VStack>
       ) : null}
