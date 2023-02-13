@@ -1,4 +1,4 @@
-import { Box, Heading, HStack, Skeleton, VStack } from "@chakra-ui/react";
+import { HStack, Skeleton, VStack } from "@chakra-ui/react";
 
 export default function ChooseLabelSkeleton() {
   return (

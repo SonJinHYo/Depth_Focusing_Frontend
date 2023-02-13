@@ -19,7 +19,6 @@ import { getBlurImage } from "../api";
 import GetBlurImage from "./GetBlurImage";
 import GetBlurImageSkeleton from "./GetBlurImageSkeleton";
 import { BiUndo } from "react-icons/bi";
-import { off } from "process";
 
 interface IChooseLabelProps {
   segImageUrl: string;
@@ -47,7 +46,8 @@ export default function ChooseLabel({
   };
   const [skeletonFlag, setSkeletonFlag] = useBoolean(true);
 
-  const { register, handleSubmit, watch } = useForm<ILabels>();
+  const { register, watch } = useForm<ILabels>();
+  const [checkLabel, setCheckLabel] = useState(0);
   const [next, setNext] = useState(false);
   const [blurImage, setBlurImage] = useState("");
 

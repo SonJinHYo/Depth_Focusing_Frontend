@@ -8,7 +8,6 @@ import {
 } from "@chakra-ui/react";
 import { useMutation } from "@tanstack/react-query";
 import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import { getSegmentation } from "../api";
 import ChooseLabel from "./ChooseLabel";
 import ChooseLabelSkeleton from "./ChooseLabelSkeleton";

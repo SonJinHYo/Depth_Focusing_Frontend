@@ -1,11 +1,4 @@
-import {
-  Box,
-  Text,
-  useColorMode,
-  useColorModeValue,
-  VStack,
-  Heading,
-} from "@chakra-ui/react";
+import { Text, VStack, Heading } from "@chakra-ui/react";
 import { Helmet } from "react-helmet";
 import ExplainaionCarousel from "../components/ExplainaionCarousel";
 

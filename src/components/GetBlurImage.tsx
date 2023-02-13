@@ -17,9 +17,6 @@ import {
   CheckboxGroup,
 } from "@chakra-ui/react";
 import { Mutation, useMutation } from "@tanstack/react-query";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { ListFormat } from "typescript";
 
 interface IGetBlurImageProps {
   blurImageURL: string;
