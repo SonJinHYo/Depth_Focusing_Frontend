@@ -59,12 +59,8 @@ export default function ChooseLabel({
         title: "seg",
         position: "bottom-right",
       });
-      setNext(true);
       setSkeletonFlag.off();
-      // blur 함수 완성되면
-      // setBlurImage(data.blur_file);
-      // 임시
-      setBlurImage(data.seg_file);
+      setBlurImage(data.blured_file);
     },
   });
 
@@ -101,6 +97,7 @@ export default function ChooseLabel({
           variant="solid"
           type="submit"
           onClick={() => {
+            setNext(true);
             onMoveElement();
             getBlurMutation.mutate({
               check_labels: watch(),
