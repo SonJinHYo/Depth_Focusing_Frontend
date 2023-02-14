@@ -194,22 +194,22 @@ export default function ChooseLabel({
                 Filter Size
               </Text>
               <Slider
-                defaultValue={7}
-                min={3}
-                max={30}
+                defaultValue={4}
+                min={1}
+                max={8}
                 w={"70%"}
                 h={7}
                 aria-label="slider-ex-6"
                 onChange={(val) => setblurSize(val)}
               >
-                <SliderMark value={8} {...labelStyles}>
-                  8
+                <SliderMark value={2} {...labelStyles}>
+                  2
                 </SliderMark>
-                <SliderMark value={16} {...labelStyles}>
-                  16
+                <SliderMark value={4} {...labelStyles}>
+                  4
                 </SliderMark>
-                <SliderMark value={24} {...labelStyles}>
-                  24
+                <SliderMark value={6} {...labelStyles}>
+                  6
                 </SliderMark>
                 <SliderMark
                   value={blurSize}
@@ -241,7 +241,7 @@ export default function ChooseLabel({
               </Text>
               <Slider
                 defaultValue={100}
-                min={100}
+                min={50}
                 max={200}
                 w={"70%"}
                 h={7}
@@ -249,14 +249,14 @@ export default function ChooseLabel({
                 aria-label="slider-ex-6"
                 onChange={(val) => setdepthSplit(val)}
               >
-                <SliderMark value={125} {...labelStyles}>
-                  125
+                <SliderMark value={50} {...labelStyles}>
+                  50
+                </SliderMark>
+                <SliderMark value={100} {...labelStyles}>
+                  100
                 </SliderMark>
                 <SliderMark value={150} {...labelStyles}>
                   150
-                </SliderMark>
-                <SliderMark value={175} {...labelStyles}>
-                  175
                 </SliderMark>
                 <SliderMark
                   value={depthSplit}
@@ -279,7 +279,7 @@ export default function ChooseLabel({
             <Button
               onClick={() => {
                 setStrength(30);
-                setblurSize(7);
+                setblurSize(4);
                 setdepthSplit(100);
               }}
             >
@@ -322,6 +322,7 @@ export default function ChooseLabel({
             variant="solid"
             type="submit"
             onClick={() => {
+              setSkeletonFlag.on();
               setNext2(true);
               onMoveElement();
               getBlurMutation.mutate({

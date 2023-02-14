@@ -49,7 +49,7 @@ export default function ViewPhoto({ imageUrl }: IViewPhotosProps) {
       toast({
         status: "success",
         title: "Complete!",
-        position: "bottom",
+        position: "bottom-right",
         isClosable: true,
       });
       setNext(true);
