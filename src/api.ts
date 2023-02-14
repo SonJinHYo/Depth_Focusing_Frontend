@@ -151,3 +151,22 @@ export const getBlurImage = ({
       }
     )
     .then((response) => response.data);
+
+export const retryBlurImage = ({
+  check_labels,
+  seg_file,
+  strength,
+  blur_size,
+  depth_split,
+}: IGetBlurImageProps) =>
+  instance
+    .post(
+      `medias/photos/get-blurimageagain`,
+      { check_labels, seg_file, strength, blur_size, depth_split },
+      {
+        headers: {
+          "X-CSRFToken": Cookie.get("csrftoken") || "",
+        },
+      }
+    )
+    .then((response) => response.data);

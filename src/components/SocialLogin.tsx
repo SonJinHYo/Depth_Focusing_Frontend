@@ -21,9 +21,6 @@ export default function SocialLogin() {
         >
           Continue with Github
         </Button>
-        <Button w="100%" leftIcon={<FaComment />} colorScheme={"yellow"}>
-          Continue with Kakao
-        </Button>
       </VStack>
     </Box>
   );

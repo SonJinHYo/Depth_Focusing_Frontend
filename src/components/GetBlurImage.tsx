@@ -1,39 +1,14 @@
-import {
-  Box,
-  Image,
-  VStack,
-  Text,
-  Button,
-  HStack,
-  Stack,
-  Checkbox,
-  Heading,
-  useBoolean,
-  Input,
-  Grid,
-  GridItem,
-  FormControl,
-  useToast,
-  CheckboxGroup,
-} from "@chakra-ui/react";
-import { Mutation, useMutation } from "@tanstack/react-query";
+import { Image, VStack, Button, HStack } from "@chakra-ui/react";
 
 interface IGetBlurImageProps {
   blurImageURL: string;
-  onMoveReset: any;
-}
-
-interface ILabels {
-  blurImageURL: string;
-  check_labels: number[];
+  onMoveResubmit: any;
 }
 
 export default function GetBlurImage({
   blurImageURL,
-  onMoveReset,
+  onMoveResubmit,
 }: IGetBlurImageProps) {
-  const toast = useToast();
-
   return (
     <VStack
       my="10"
@@ -45,7 +20,7 @@ export default function GetBlurImage({
       <Image rounded={"lg"} src={blurImageURL} />
       <HStack spacing={20}>
         <Button
-          fontSize={25}
+          fontSize={20}
           w={200}
           h={"14"}
           size={"lg"}
@@ -56,16 +31,16 @@ export default function GetBlurImage({
           Save
         </Button>
         <Button
-          fontSize={25}
+          fontSize={20}
           w={200}
           h={"14"}
           size={"lg"}
           colorScheme={"teal"}
           variant="solid"
           type="submit"
-          onClick={onMoveReset}
+          onClick={onMoveResubmit}
         >
-          Another
+          Another Option
         </Button>
       </HStack>
     </VStack>
