@@ -126,7 +126,7 @@ export const getSegmentation = ({ file }: IGetSegmentationProps) =>
     .then((response) => response.data);
 
 export interface IGetBlurImageProps {
-  check_labels: object;
+  check_label: number;
   seg_file: string;
   strength: number;
   blur_size: number;
@@ -134,7 +134,7 @@ export interface IGetBlurImageProps {
 }
 
 export const getBlurImage = ({
-  check_labels,
+  check_label,
   seg_file,
   strength,
   blur_size,
@@ -143,7 +143,7 @@ export const getBlurImage = ({
   instance
     .post(
       `medias/photos/get-blurimage`,
-      { check_labels, seg_file, strength, blur_size, depth_split },
+      { check_label, seg_file, strength, blur_size, depth_split },
       {
         headers: {
           "X-CSRFToken": Cookie.get("csrftoken") || "",
@@ -153,7 +153,7 @@ export const getBlurImage = ({
     .then((response) => response.data);
 
 export const retryBlurImage = ({
-  check_labels,
+  check_label,
   seg_file,
   strength,
   blur_size,
@@ -162,7 +162,7 @@ export const retryBlurImage = ({
   instance
     .post(
       `medias/photos/get-blurimageagain`,
-      { check_labels, seg_file, strength, blur_size, depth_split },
+      { check_label, seg_file, strength, blur_size, depth_split },
       {
         headers: {
           "X-CSRFToken": Cookie.get("csrftoken") || "",

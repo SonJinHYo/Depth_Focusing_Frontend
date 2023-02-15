@@ -2,6 +2,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import {
   Box,
+  Button,
   Image,
   Text,
   useColorMode,
@@ -11,7 +12,6 @@ import {
 import { Link } from "react-router-dom";
 
 export default function ExplainaionCarousel() {
-  const { toggleColorMode } = useColorMode();
   const guideColor = useColorModeValue("gray.100", "gray.700");
   return (
     <Box w={"60%"} bgColor={guideColor} justifyItems={"center"} rounded="xl">
@@ -21,10 +21,10 @@ export default function ExplainaionCarousel() {
           <Image
             boxSize="md"
             objectFit={"contain"}
-            src="https://imagedelivery.net/QuZC_XPqQ0puEDGDCfsphg/8c3ddd44-8c73-41e0-b979-71a9064dfa00/public"
+            src="https://imagedelivery.net/QuZC_XPqQ0puEDGDCfsphg/b4f93a86-2a9c-4dbe-4434-396809d4e600/public"
           />
           <Text fontSize={20} fontStyle="italic" mt={10}>
-            Select the image you want
+            Select the image you want & Click Continue
           </Text>
           <Text fontSize={20} fontStyle="italic" mt={10}>
             If you want to get a good quality photo,
@@ -39,7 +39,7 @@ export default function ExplainaionCarousel() {
             gridColumn={"auto"}
             boxSize="md"
             objectFit="contain"
-            src="https://imagedelivery.net/QuZC_XPqQ0puEDGDCfsphg/a5542224-a080-409d-8025-182ed8439000/public"
+            src="https://imagedelivery.net/QuZC_XPqQ0puEDGDCfsphg/06ea834c-53c8-4987-d384-aaac6740e900/public"
           />
           <Text fontSize={20} fontStyle="italic" mt={10} mb={4}>
             You will get segmentation image & label
@@ -54,21 +54,40 @@ export default function ExplainaionCarousel() {
             Our blur skill is not at all
           </Text>
         </Box>
+        <Box>
+          <Image
+            gridColumn={"auto"}
+            boxSize="md"
+            objectFit="contain"
+            src="https://imagedelivery.net/QuZC_XPqQ0puEDGDCfsphg/5a34623e-38a6-4b66-5006-a97b1d522600/public"
+          />
+          <Text fontSize={20} fontStyle="italic" mt={20} mb={4}>
+            And the Option will help you
+          </Text>
+        </Box>
 
         <Box>
           <Image
             gridColumn={"auto"}
             boxSize="md"
             objectFit="contain"
-            src="https://imagedelivery.net/QuZC_XPqQ0puEDGDCfsphg/edb3ee16-48ff-4ee5-2593-7c2b88f01200/public"
+            src="https://imagedelivery.net/QuZC_XPqQ0puEDGDCfsphg/26aaea90-32e7-4508-1f3d-4f7371736700/public"
           />
           <Text fontSize={20} fontStyle="italic" p={10}>
-            Get Focus Image
+            Get Focus Image! Click Save!
+          </Text>
+          <Text fontSize={20} fontStyle="italic" mb={10}>
+            But.. If you don't want this, Click 'Another Option'
           </Text>
           <Link to={"users/1/photos"}>
-            <Text fontSize={30} color="red.200" fontWeight={"semibold"}>
+            <Button
+              p={10}
+              fontSize={30}
+              color="red.200"
+              fontWeight={"semibold"}
+            >
               Upload Image
-            </Text>
+            </Button>
           </Link>
           <Text color={"gray.500"} mt={5}>
             or Click your profile

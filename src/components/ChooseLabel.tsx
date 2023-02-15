@@ -13,6 +13,13 @@ import {
   useToast,
   IconButton,
   Center,
+  Box,
+  useDisclosure,
+  Collapse,
+  FormLabel,
+  RadioGroup,
+  Radio,
+  FormHelperText,
 } from "@chakra-ui/react";
 import { useMutation } from "@tanstack/react-query";
 import { useRef, useState } from "react";
@@ -27,6 +34,10 @@ import {
   SliderFilledTrack,
   SliderThumb,
   SliderMark,
+  Fade,
+  ScaleFade,
+  Slide,
+  SlideFade,
 } from "@chakra-ui/react";
 
 interface IChooseLabelProps {
@@ -36,7 +47,7 @@ interface IChooseLabelProps {
 }
 
 interface ILabels {
-  check_labels: number[];
+  check_label: number;
 }
 
 export default function ChooseLabel({
@@ -68,13 +79,14 @@ export default function ChooseLabel({
       });
     }, 100);
   };
+
+  const { isOpen, onToggle } = useDisclosure();
   const [skeletonFlag, setSkeletonFlag] = useBoolean(true);
   const [retryButton, setRetryButton] = useBoolean();
-  const [optionButton, setOptionButton] = useBoolean(false);
 
   const { register, watch } = useForm<ILabels>();
   const [strength, setStrength] = useState(30);
-  const [blurSize, setblurSize] = useState(7);
+  const [blurSize, setblurSize] = useState(4);
   const [depthSplit, setdepthSplit] = useState(100);
   const [next2, setNext2] = useState(false);
   const [blurImage, setBlurImage] = useState("");
@@ -103,6 +115,7 @@ export default function ChooseLabel({
       setBlurImage(data.blured_file);
     },
   });
+  console.log(watch());
 
   return (
     <VStack
@@ -116,28 +129,37 @@ export default function ChooseLabel({
           <Image rounded={"lg"} src={segImageUrl} />
         </GridItem>
         <GridItem>
-          <VStack ml={20} spacing={5} align={"center"}>
-            {labels?.map((label: number) => (
-              <FormControl key={label}>
-                <Checkbox size={"lg"} {...register(`check_labels.${label}`)}>
-                  {label}
-                </Checkbox>
-              </FormControl>
-            ))}
+          <VStack ml={20} spacing={5}>
+            <FormControl>
+              <FormLabel as="legend">Labels</FormLabel>
+              <RadioGroup defaultValue="1">
+                <VStack spacing="24px">
+                  {labels?.map((label: number) => (
+                    <Radio value={String(label)} {...register(`check_label`)}>
+                      {label}
+                    </Radio>
+                  ))}
+                  {/* <Checkbox size={"lg"} {...register(`check_labels.${label}`)}>
+                {label}
+              </Checkbox> */}
+                </VStack>
+              </RadioGroup>
+              {/* <FormHelperText>Select only if you're a fan.</FormHelperText> */}
+            </FormControl>
           </VStack>
         </GridItem>
       </Grid>
       <VStack w={"100%"}>
         <Button
           colorScheme={"red"}
-          onClick={setOptionButton.toggle}
+          onClick={onToggle}
           mb={10}
           ref={scrollRetry}
         >
           Option
         </Button>
-        {optionButton ? (
-          <>
+        <Collapse in={isOpen} animateOpacity>
+          <VStack w={800} bgColor={"gray.900"} p={10} rounded={"xl"}>
             <Center
               pt={6}
               pb={2}
@@ -145,7 +167,7 @@ export default function ChooseLabel({
               alignItems={"center"}
               rounded={"3xl"}
             >
-              <Text fontSize={20} mr={5}>
+              <Text color={"whiteAlpha.900"} fontSize={20} mr={5}>
                 Blur Strength
               </Text>
               <Slider
@@ -190,7 +212,7 @@ export default function ChooseLabel({
               alignItems={"center"}
               rounded={"3xl"}
             >
-              <Text fontSize={20} mr={5}>
+              <Text color={"whiteAlpha.900"} fontSize={20} mr={5}>
                 Filter Size
               </Text>
               <Slider
@@ -236,27 +258,27 @@ export default function ChooseLabel({
               alignItems={"center"}
               rounded={"3xl"}
             >
-              <Text fontSize={20} mr={5}>
+              <Text color={"whiteAlpha.900"} fontSize={20} mr={5}>
                 quality
               </Text>
               <Slider
                 defaultValue={100}
                 min={50}
-                max={200}
+                max={150}
                 w={"70%"}
                 h={7}
-                mb={10}
+                // mb={10}
                 aria-label="slider-ex-6"
                 onChange={(val) => setdepthSplit(val)}
               >
-                <SliderMark value={50} {...labelStyles}>
-                  50
+                <SliderMark value={75} {...labelStyles}>
+                  75
                 </SliderMark>
                 <SliderMark value={100} {...labelStyles}>
                   100
                 </SliderMark>
-                <SliderMark value={150} {...labelStyles}>
-                  150
+                <SliderMark value={125} {...labelStyles}>
+                  125
                 </SliderMark>
                 <SliderMark
                   value={depthSplit}
@@ -275,8 +297,10 @@ export default function ChooseLabel({
                 <SliderThumb />
               </Slider>
             </Center>
+            <Box p={5}></Box>
 
             <Button
+              colorScheme={"facebook"}
               onClick={() => {
                 setStrength(30);
                 setblurSize(4);
@@ -285,8 +309,8 @@ export default function ChooseLabel({
             >
               Set Default
             </Button>
-          </>
-        ) : null}
+          </VStack>
+        </Collapse>
       </VStack>
       <HStack spacing={20}>
         {retryButton ? (
@@ -302,7 +326,7 @@ export default function ChooseLabel({
               setNext2(true);
               onMoveElement();
               retryBlurMutation.mutate({
-                check_labels: watch(),
+                check_label: Number(watch("check_label")),
                 seg_file: segImageUrl,
                 strength: Number(strength) / 10,
                 blur_size: blurSize,
@@ -310,7 +334,7 @@ export default function ChooseLabel({
               });
             }}
           >
-            Get Focusing Image2
+            Retry
           </Button>
         ) : (
           <Button
@@ -326,7 +350,7 @@ export default function ChooseLabel({
               setNext2(true);
               onMoveElement();
               getBlurMutation.mutate({
-                check_labels: watch(),
+                check_label: Number(watch("check_label")),
                 seg_file: segImageUrl,
                 strength: Number(strength) / 10,
                 blur_size: blurSize,
