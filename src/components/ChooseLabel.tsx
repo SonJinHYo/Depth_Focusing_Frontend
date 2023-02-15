@@ -135,7 +135,11 @@ export default function ChooseLabel({
               <RadioGroup defaultValue="1">
                 <VStack spacing="24px">
                   {labels?.map((label: number) => (
-                    <Radio value={String(label)} {...register(`check_label`)}>
+                    <Radio
+                      key={label}
+                      value={String(label)}
+                      {...register(`check_label`)}
+                    >
                       {label}
                     </Radio>
                   ))}
