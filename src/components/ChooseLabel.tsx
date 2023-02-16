@@ -336,6 +336,7 @@ export default function ChooseLabel({
                 blur_size: blurSize,
                 depth_split: depthSplit,
               });
+              setSkeletonFlag.on();
             }}
           >
             Retry

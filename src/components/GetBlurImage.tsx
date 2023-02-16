@@ -1,4 +1,5 @@
 import { Image, VStack, Button, HStack } from "@chakra-ui/react";
+import { saveAs } from "file-saver";
 
 interface IGetBlurImageProps {
   blurImageURL: string;
@@ -9,6 +10,10 @@ export default function GetBlurImage({
   blurImageURL,
   onMoveResubmit,
 }: IGetBlurImageProps) {
+  const handleClick = () => {
+    let url = blurImageURL;
+    saveAs(url, "Blur-Image");
+  };
   return (
     <VStack
       my="10"
@@ -26,7 +31,8 @@ export default function GetBlurImage({
           size={"lg"}
           colorScheme={"teal"}
           variant="solid"
-          type="submit"
+          type="button"
+          onClick={handleClick}
         >
           Save
         </Button>
