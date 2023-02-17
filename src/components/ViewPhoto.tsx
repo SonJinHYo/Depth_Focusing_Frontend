@@ -78,10 +78,12 @@ export default function ViewPhoto({ imageUrl }: IViewPhotosProps) {
         colorScheme={"teal"}
         variant="solid"
         onClick={() => {
-          setNext(true);
           // 백엔드 구현 후 활성화될 부분
-          getSegmentatedImage.mutate({ file: imageUrl });
+          if (next === false) {
+            getSegmentatedImage.mutate({ file: imageUrl });
+          }
           onMoveElement();
+          setNext(true);
         }}
       >
         Continue
