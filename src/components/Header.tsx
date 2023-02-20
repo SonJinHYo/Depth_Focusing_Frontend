@@ -26,7 +26,6 @@ import { useQueryClient } from "@tanstack/react-query";
 
 export default function Header() {
   const { userLoading, isLoggedIn, user } = useUser();
-  console.log(user);
   const {
     isOpen: isLoginOpen,
     onClose: onLoginClose,
