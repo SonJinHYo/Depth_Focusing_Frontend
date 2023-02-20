@@ -26,6 +26,7 @@ import { useQueryClient } from "@tanstack/react-query";
 
 export default function Header() {
   const { userLoading, isLoggedIn, user } = useUser();
+  console.log(user);
   const {
     isOpen: isLoginOpen,
     onClose: onLoginClose,
@@ -94,7 +95,7 @@ export default function Header() {
               </MenuButton>
               <MenuList>
                 <MenuItem onClick={onLogOut}>Log out</MenuItem>
-                <Link to={"/users/1/photos"}>
+                <Link to={`/users/${user?.id}/photos`}>
                   <MenuItem>Upload Photo</MenuItem>
                 </Link>
               </MenuList>

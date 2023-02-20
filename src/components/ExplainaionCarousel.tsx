@@ -2,8 +2,10 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import { Box, Button, Image, Text, useColorModeValue } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import useUser from "../lib/useUser";
 
 export default function ExplainaionCarousel() {
+  const { user } = useUser();
   const guideColor = useColorModeValue("gray.100", "gray.700");
   return (
     <Box w={"60%"} bgColor={guideColor} justifyItems={"center"} rounded="xl">
@@ -68,7 +70,7 @@ export default function ExplainaionCarousel() {
           <Text fontSize={20} fontStyle="italic" mb={10}>
             But.. If you don't want this, Click 'Another Option'
           </Text>
-          <Link to={"users/1/photos"}>
+          <Link to={`users/${user?.id}/photos`}>
             <Button
               p={10}
               fontSize={30}

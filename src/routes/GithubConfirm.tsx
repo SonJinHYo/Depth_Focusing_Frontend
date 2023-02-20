@@ -4,8 +4,10 @@ import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { githubLogIn } from "../api";
 import WatingPage from "../components/WatingPage";
+import useUser from "../lib/useUser";
 
 export default function GithubConfirm() {
+  const { user } = useUser();
   const { search } = useLocation();
   const toast = useToast();
   const queryClient = useQueryClient();
@@ -22,7 +24,7 @@ export default function GithubConfirm() {
           description: "Log In Using Github",
         });
         queryClient.refetchQueries(["me"]);
-        navigate("/users/1/photos");
+        navigate(`/users/${user?.id}/photos`);
       }
     }
   };
