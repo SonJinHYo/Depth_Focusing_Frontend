@@ -1,14 +1,6 @@
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
-import {
-  Box,
-  Button,
-  Image,
-  Text,
-  useColorMode,
-  useColorModeValue,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Button, Image, Text, useColorModeValue } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 export default function ExplainaionCarousel() {
@@ -28,9 +20,6 @@ export default function ExplainaionCarousel() {
           </Text>
           <Text fontSize={20} fontStyle="italic" mt={10}>
             If you want to get a good quality photo,
-          </Text>
-          <Text fontSize={20} fontStyle="italic">
-            recommended that the photo size does not exceed (사진크기).
           </Text>
           <Text></Text>
         </Box>

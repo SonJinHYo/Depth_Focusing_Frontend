@@ -1,4 +1,4 @@
-import { FaComment, FaGithub } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
 import { Box, Button, Divider, HStack, Text, VStack } from "@chakra-ui/react";
 
 export default function SocialLogin() {

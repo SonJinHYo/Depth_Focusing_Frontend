@@ -4,7 +4,6 @@ import {
   VStack,
   Button,
   HStack,
-  Checkbox,
   Heading,
   useBoolean,
   Grid,
@@ -19,7 +18,6 @@ import {
   FormLabel,
   RadioGroup,
   Radio,
-  FormHelperText,
 } from "@chakra-ui/react";
 import { useMutation } from "@tanstack/react-query";
 import { useRef, useState } from "react";
@@ -35,9 +33,6 @@ import {
   SliderThumb,
   SliderMark,
   Fade,
-  ScaleFade,
-  Slide,
-  SlideFade,
 } from "@chakra-ui/react";
 
 interface IChooseLabelProps {
@@ -115,7 +110,6 @@ export default function ChooseLabel({
       setBlurImage(data.blured_file);
     },
   });
-  console.log(watch());
 
   return (
     <VStack
