@@ -23,12 +23,10 @@
 | :--------: | :--------: |
 
 ## 구현 방식
- - 개발환경 : Poetry --version 1.2.0
- - 배포 : Poetry와의 호환성을 위해 **Render**를 통해 배포
- - ORM 기반 코드
- - DRF를 이용한 RESTful API 설계 및 구현
- - Cloudflare API를 통한 이미지 저장
- - github API를 통한 로그인 기능 구현
+ - 개발환경 : node.js 기반 TypeScript
+ - 배포 : **Render**
+ - React, Chakra UI 사용
+ - Cloudflare API를 통한 이미지 불러오기
 
 ## 최종 결과
 - 사진의 특정 물체를 객체 분할을 통해 선택하고, 해당 물체의 깊이에 따라 해당 물체를 제외한 모든 것(배경 포함)들에 블러 처리를 해준다.
